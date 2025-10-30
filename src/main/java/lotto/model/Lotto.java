@@ -1,5 +1,6 @@
 package lotto.model;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
 
 public class Lotto {
@@ -15,6 +16,13 @@ public class Lotto {
         validateDuplicate(numbers);
 
         this.numbers = numbers;
+    }
+
+    public static Lotto random() {
+        List<Integer> randomNumbers = Randoms.pickUniqueNumbersInRange(MINIMUM, MAXIMUM,
+                SIZE);
+
+        return new Lotto(randomNumbers);
     }
 
     private void validateSize(List<Integer> numbers) {
