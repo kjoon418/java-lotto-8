@@ -15,6 +15,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private static final String LOTTO_PREFIX = "[";
     private static final String LOTTO_SUFFIX = "]";
     private static final String LOTTO_DELIMITER = ", ";
+    private static final String ERROR_MESSAGE_PREFIX = "[ERROR] ";
 
     @Override
     public void printPurchaseAmountGuide() {
@@ -56,6 +57,11 @@ public class LottoOutputViewImpl implements LottoOutputView {
         }
 
         printProfitRate(statistic.profitRate());
+    }
+
+    @Override
+    public void printErrorMessage(Exception error) {
+        System.out.println(ERROR_MESSAGE_PREFIX + error.getMessage());
     }
 
     @Override

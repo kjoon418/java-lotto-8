@@ -15,5 +15,7 @@ public interface LottoOutputView {
 
     void printResultStatistic(LottoStatisticDto statistic);
 
+    void printErrorMessage(Exception error);
+
     void printEmptyLine();
 }
