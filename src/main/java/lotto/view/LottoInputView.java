@@ -6,4 +6,6 @@ public interface LottoInputView {
     String readWinningNumbers();
 
     String readBonusNumber();
+
+    void close();
 }

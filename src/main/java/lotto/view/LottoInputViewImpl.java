@@ -17,4 +17,9 @@ public class LottoInputViewImpl implements LottoInputView {
     public String readBonusNumber() {
         return Console.readLine();
     }
+
+    @Override
+    public void close() {
+        Console.close();
+    }
 }
