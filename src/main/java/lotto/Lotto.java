@@ -12,6 +12,7 @@ public class Lotto {
     public Lotto(List<Integer> numbers) {
         validateSize(numbers);
         validateRange(numbers);
+        validateDuplicate(numbers);
 
         this.numbers = numbers;
     }
@@ -33,5 +34,15 @@ public class Lotto {
 
     private boolean isOutOfRange(Integer number) {
         return number < MINIMUM || number > MAXIMUM;
+    }
+
+    private void validateDuplicate(List<Integer> numbers) {
+        long distinctSize = numbers.stream()
+                .distinct()
+                .count();
+
+        if (numbers.size() != distinctSize) {
+            throw new IllegalArgumentException("로또 번호는 중복될 수 업습니다.");
+        }
     }
 }
