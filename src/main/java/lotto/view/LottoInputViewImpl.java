@@ -7,4 +7,9 @@ public class LottoInputViewImpl implements LottoInputView {
     public String readPurchaseAmount() {
         return Console.readLine();
     }
+
+    @Override
+    public String readWinningNumbers() {
+        return Console.readLine();
+    }
 }
