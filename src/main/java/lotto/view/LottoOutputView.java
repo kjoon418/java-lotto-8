@@ -2,6 +2,7 @@ package lotto.view;
 
 import java.util.List;
 import lotto.dto.LottoDto;
+import lotto.dto.LottoStatisticDto;
 
 public interface LottoOutputView {
     void printPurchaseAmountGuide();
@@ -11,6 +12,8 @@ public interface LottoOutputView {
     void printBonusNumberGuide();
 
     void printPurchasedLottos(List<LottoDto> lottos);
+
+    void printResultStatistic(LottoStatisticDto statistic);
 
     void printEmptyLine();
 }
