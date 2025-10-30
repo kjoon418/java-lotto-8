@@ -8,6 +8,8 @@ public interface LottoOutputView {
 
     void printWinningNumbersGuide();
 
+    void printBonusNumberGuide();
+
     void printPurchasedLottos(List<LottoDto> lottos);
 
     void printEmptyLine();

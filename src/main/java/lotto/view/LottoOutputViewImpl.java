@@ -20,6 +20,11 @@ public class LottoOutputViewImpl implements LottoOutputView {
     }
 
     @Override
+    public void printBonusNumberGuide() {
+        System.out.println("보너스 번호를 입력해 주세요.");
+    }
+
+    @Override
     public void printPurchasedLottos(List<LottoDto> lottos) {
         System.out.printf("%d개를 구매했습니다.", lottos.size());
 
