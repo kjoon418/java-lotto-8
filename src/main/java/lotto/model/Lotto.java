@@ -25,6 +25,16 @@ public class Lotto {
         return new Lotto(randomNumbers);
     }
 
+    public int getEqualCount(Lotto otherLotto) {
+        return (int) otherLotto.numbers.stream()
+                .filter(this::contains)
+                .count();
+    }
+
+    public boolean contains(int number) {
+        return numbers.contains(number);
+    }
+
     private void validateSize(List<Integer> numbers) {
         if (numbers.size() != SIZE) {
             throw new IllegalArgumentException("로또 번호는 " + SIZE + "개여야 합니다.");
