@@ -2,9 +2,9 @@ package lotto.model;
 
 public class LottoResultCalculatorImpl implements LottoResultCalculator {
     @Override
-    public LottoResult calculate(Lotto lotto, Lotto winningLotto, int bonusNumber) {
+    public LottoResult calculate(Lotto lotto, WinningLotto winningLotto) {
         int equalCount = lotto.getEqualCount(winningLotto);
-        boolean bonusEqual = lotto.contains(bonusNumber);
+        boolean bonusEqual = winningLotto.bonusNumberMatchedWith(lotto);
 
         return LottoResult.of(equalCount, bonusEqual);
     }

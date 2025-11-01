@@ -13,14 +13,17 @@ class LottoResultCalculatorImplTest {
     private static final int[] WINNING_NUMBERS = {1, 2, 3, 4, 5, 6};
     private static final int[] WRONG_NUMBERS = {11, 12, 13, 14, 15, 16};
     private static final int BONUS_NUMBER = 7;
-    private static final Lotto WINNING_LOTTO = new Lotto(List.of(
-            WINNING_NUMBERS[0],
-            WINNING_NUMBERS[1],
-            WINNING_NUMBERS[2],
-            WINNING_NUMBERS[3],
-            WINNING_NUMBERS[4],
-            WINNING_NUMBERS[5]
-    ));
+    private static final WinningLotto WINNING_LOTTO = new WinningLotto(
+            List.of(
+                    WINNING_NUMBERS[0],
+                    WINNING_NUMBERS[1],
+                    WINNING_NUMBERS[2],
+                    WINNING_NUMBERS[3],
+                    WINNING_NUMBERS[4],
+                    WINNING_NUMBERS[5]
+            ),
+            BONUS_NUMBER
+    );
 
     private final LottoResultCalculator lottoResultCalculator = new LottoResultCalculatorImpl();
 
@@ -34,7 +37,7 @@ class LottoResultCalculatorImplTest {
             Lotto notWinningLotto = new Lotto(notWinningNumbers);
 
             // when
-            LottoResult result = lottoResultCalculator.calculate(notWinningLotto, WINNING_LOTTO, BONUS_NUMBER);
+            LottoResult result = lottoResultCalculator.calculate(notWinningLotto, WINNING_LOTTO);
 
             // then
             assertThat(result).isSameAs(LottoResult.NO_PRIZE);
@@ -49,7 +52,7 @@ class LottoResultCalculatorImplTest {
             LottoResult expectedResult = LottoResult.of(equalCount, false);
 
             // when
-            LottoResult actualResult = lottoResultCalculator.calculate(threeEqualLotto, WINNING_LOTTO, BONUS_NUMBER);
+            LottoResult actualResult = lottoResultCalculator.calculate(threeEqualLotto, WINNING_LOTTO);
 
             // then
             assertThat(actualResult).isSameAs(expectedResult);
@@ -64,7 +67,7 @@ class LottoResultCalculatorImplTest {
             LottoResult expectedResult = LottoResult.of(equalCount, true);
 
             // when
-            LottoResult actualResult = lottoResultCalculator.calculate(fiveBonusEqualLotto, WINNING_LOTTO, BONUS_NUMBER);
+            LottoResult actualResult = lottoResultCalculator.calculate(fiveBonusEqualLotto, WINNING_LOTTO);
 
             // then
             assertThat(actualResult).isSameAs(expectedResult);
