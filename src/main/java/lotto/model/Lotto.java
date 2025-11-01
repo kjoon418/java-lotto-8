@@ -25,6 +25,10 @@ public class Lotto {
         return new Lotto(randomNumbers);
     }
 
+    public List<Integer> getNumbers() {
+        return List.copyOf(numbers);
+    }
+
     public int getEqualCount(Lotto otherLotto) {
         return (int) otherLotto.numbers.stream()
                 .filter(this::contains)
