@@ -70,11 +70,19 @@ public class LottoOutputViewImpl implements LottoOutputView {
     }
 
     private void printLotto(LottoDto lotto) {
-        String joinedNumbers = lotto.numbers().stream()
+        List<Integer> sortedNumbers = sortAscending(lotto.numbers());
+
+        String joinedNumbers = sortedNumbers.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(LOTTO_DELIMITER));
 
         System.out.println(LOTTO_PREFIX + joinedNumbers + LOTTO_SUFFIX);
+    }
+
+    private List<Integer> sortAscending(List<Integer> numbers) {
+        return numbers.stream()
+                .sorted()
+                .toList();
     }
 
     private Map<LottoResult, Integer> getResultsSortedAscending(Map<LottoResult, Integer> results) {
