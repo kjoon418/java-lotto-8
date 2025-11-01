@@ -34,7 +34,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
 
     @Override
     public void printPurchasedLottos(List<LottoDto> lottos) {
-        System.out.printf("%d개를 구매했습니다.", lottos.size());
+        System.out.printf("%d개를 구매했습니다." + System.lineSeparator(), lottos.size());
 
         for (LottoDto lotto : lottos) {
             printLotto(lotto);
