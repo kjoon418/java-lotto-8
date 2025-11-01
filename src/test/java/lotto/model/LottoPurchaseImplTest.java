@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import lotto.dto.LottoPurchaseDto;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -19,10 +20,13 @@ class LottoPurchaseImplTest {
         int expectedLottoAmount = purchaseAmount / PRICE;
 
         // when
-        List<Lotto> lottos = lottoPurchase.purchaseRandomLottos(purchaseAmount);
+        LottoPurchaseDto result = lottoPurchase.purchaseRandomLottos(purchaseAmount);
 
         // then
+        List<Lotto> lottos = result.lottos();
         assertThat(lottos.size()).isEqualTo(expectedLottoAmount);
+        int usedPurchaseAmount = result.usedPurchaseAmount();
+        assertThat(usedPurchaseAmount).isEqualTo(purchaseAmount);
     }
 
     @ParameterizedTest

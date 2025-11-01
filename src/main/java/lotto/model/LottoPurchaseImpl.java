@@ -3,6 +3,7 @@ package lotto.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import lotto.dto.LottoPurchaseDto;
 
 public class LottoPurchaseImpl implements LottoPurchase {
     private final int price;
@@ -12,7 +13,7 @@ public class LottoPurchaseImpl implements LottoPurchase {
     }
 
     @Override
-    public List<Lotto> purchaseRandomLottos(int purchaseAmount) {
+    public LottoPurchaseDto purchaseRandomLottos(int purchaseAmount) {
         validatePurchaseAmount(purchaseAmount);
 
         int lottoAmount = getLottoAmount(purchaseAmount);
@@ -21,7 +22,7 @@ public class LottoPurchaseImpl implements LottoPurchase {
             lottos.add(Lotto.random());
         }
 
-        return Collections.unmodifiableList(lottos);
+        return new LottoPurchaseDto(Collections.unmodifiableList(lottos), purchaseAmount);
     }
 
     private void validatePurchaseAmount(int purchaseAmount) {

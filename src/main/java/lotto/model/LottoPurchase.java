@@ -1,7 +1,7 @@
 package lotto.model;
 
-import java.util.List;
+import lotto.dto.LottoPurchaseDto;
 
 public interface LottoPurchase {
-    List<Lotto> purchaseRandomLottos(int purchaseAmount);
+    LottoPurchaseDto purchaseRandomLottos(int purchaseAmount);
 }
