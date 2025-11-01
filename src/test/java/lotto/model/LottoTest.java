@@ -2,15 +2,20 @@ package lotto.model;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class LottoTest {
-    @Test
-    void 로또_번호의_개수가_6개가_넘어가면_예외가_발생한다() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6, 7)))
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 7, 8, 9, 10})
+    void 로또_번호의_개수가_6개보다_작거나_크다면_예외가_발생한다(int numberAmount) {
+        List<Integer> numbers = createNumbers(numberAmount);
+
+        assertThatThrownBy(() -> new Lotto(numbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -32,5 +37,11 @@ class LottoTest {
     void 로또_번호가_45보다_크면_예외가_발생한다(int illegalNumber) {
         assertThatThrownBy(() -> new Lotto(List.of(illegalNumber, 2, 3, 4, 5, 6)))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    private List<Integer> createNumbers(int size) {
+        return Stream.iterate(1, number -> number + 1)
+                .limit(size)
+                .toList();
     }
 }
