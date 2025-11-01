@@ -48,7 +48,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
         System.out.println("당첨 통계");
         System.out.println("---");
 
-        Map<LottoResult, Integer> sortedResults = getResultsSortedAscending(statistic.results());
+        Map<LottoResult, Integer> sortedResults = getResultsSortedAscending(statistic.resultAmounts());
         for (Map.Entry<LottoResult, Integer> entry : sortedResults.entrySet()) {
             LottoResult result = entry.getKey();
             Integer lottoAmount = entry.getValue();
