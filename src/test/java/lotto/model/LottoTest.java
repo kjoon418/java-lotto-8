@@ -1,8 +1,9 @@
 package lotto.model;
 
+import static lotto.util.TestUtils.lottoNumbersOf;
+import static lotto.util.TestUtils.toLottoNumbers;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 7, 8, 9, 10})
     void 로또_번호의_개수가_6개보다_작거나_크다면_예외가_발생한다(int numberAmount) {
-        List<Integer> numbers = createNumbers(numberAmount);
+        List<LottoNumber> numbers = createNumbers(numberAmount);
 
         assertThatThrownBy(() -> new Lotto(numbers))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -21,27 +22,16 @@ class LottoTest {
 
     @Test
     void 로또_번호에_중복된_숫자가_있으면_예외가_발생한다() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
+        List<LottoNumber> lottoNumbers = lottoNumbersOf(1, 2, 3, 4, 5, 5);
+
+        assertThatThrownBy(() -> new Lotto(lottoNumbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {0, -1, -100, Integer.MIN_VALUE})
-    void 로또_번호가_1보다_작으면_예외가_발생한다(int illegalNumber) {
-        assertThatThrownBy(() -> new Lotto(List.of(illegalNumber, 2, 3, 4, 5, 6)))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {46, 500, Integer.MAX_VALUE})
-    void 로또_번호가_45보다_크면_예외가_발생한다(int illegalNumber) {
-        assertThatThrownBy(() -> new Lotto(List.of(illegalNumber, 2, 3, 4, 5, 6)))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    private List<Integer> createNumbers(int size) {
+    private List<LottoNumber> createNumbers(int size) {
         return Stream.iterate(1, number -> number + 1)
                 .limit(size)
+                .map(LottoNumber::new)
                 .toList();
     }
 }

@@ -1,5 +1,6 @@
 package lotto.model;
 
+import static lotto.util.TestUtils.toLottoNumbers;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -47,12 +48,13 @@ class InputParserImplTest {
             // given
             List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
             String input = joinNumbers(numbers);
+            List<LottoNumber> expectedResult = toLottoNumbers(numbers);
 
             // when
-            List<Integer> parsedNumbers = inputParser.parseWinningNumbers(input);
+            List<LottoNumber> actualResult = inputParser.parseWinningNumbers(input);
 
             // then
-            assertThat(parsedNumbers).containsExactlyElementsOf(numbers);
+            assertThat(actualResult).containsExactlyElementsOf(expectedResult);
         }
 
         @ParameterizedTest
@@ -80,10 +82,10 @@ class InputParserImplTest {
         void 입력을_정수로_변환한다() {
             // given
             String rawInput = "30";
-            int expectedResult = 30;
+            LottoNumber expectedResult = new LottoNumber(30);
 
             // when
-            int actualResult = inputParser.parseBonusNumber(rawInput);
+            LottoNumber actualResult = inputParser.parseBonusNumber(rawInput);
 
             // then
             assertThat(actualResult).isEqualTo(expectedResult);

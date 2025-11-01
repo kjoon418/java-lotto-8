@@ -1,5 +1,6 @@
 package lotto.model;
 
+import static lotto.util.TestUtils.lottoNumbersOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -8,17 +9,17 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class WinningLottoTest {
-    private static final int DEFAULT_BONUS_NUMBER = 30;
-    private static final List<Integer> DEFAULT_NUMBERS = List.of(1, 2, 3, 4, 5, 6);
+    private static final LottoNumber DEFAULT_BONUS_NUMBER = new LottoNumber(30);
+    private static final Lotto DEFAULT_LOTTO = new Lotto(lottoNumbersOf(1, 2, 3, 4, 5, 6));
 
     @Test
     void 보너스_번호가_다른_번호와_중복되면_예외를_던진다() {
         // given
-        int bonusNumber = 6;
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
+        LottoNumber bonusNumber = new LottoNumber(6);
+        Lotto lotto = new Lotto(lottoNumbersOf(1, 2, 3, 4, 5, 6));
 
         // when & then
-        assertThatThrownBy(() -> new WinningLotto(numbers, bonusNumber))
+        assertThatThrownBy(() -> new WinningLotto(lotto, bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -27,8 +28,8 @@ class WinningLottoTest {
         @Test
         void 포함하는_경우() {
             // given
-            WinningLotto winningLotto = new WinningLotto(DEFAULT_NUMBERS, DEFAULT_BONUS_NUMBER);
-            Lotto otherLotto = new Lotto(List.of(1, 2, 3, 4, 5, DEFAULT_BONUS_NUMBER));
+            WinningLotto winningLotto = new WinningLotto(DEFAULT_LOTTO, DEFAULT_BONUS_NUMBER);
+            Lotto otherLotto = new Lotto(lottoNumbersOf(1, 2, 3, 4, 5, DEFAULT_BONUS_NUMBER.get()));
 
             // when
             boolean bonusNumberMatch = winningLotto.bonusNumberMatchedWith(otherLotto);
@@ -40,8 +41,8 @@ class WinningLottoTest {
         @Test
         void 포함하지_않는_경우() {
             // given
-            WinningLotto winningLotto = new WinningLotto(DEFAULT_NUMBERS, DEFAULT_BONUS_NUMBER);
-            Lotto otherLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+            WinningLotto winningLotto = new WinningLotto(DEFAULT_LOTTO, DEFAULT_BONUS_NUMBER);
+            Lotto otherLotto = new Lotto(lottoNumbersOf(1, 2, 3, 4, 5, 6));
 
             // when
             boolean bonusNumberMatch = winningLotto.bonusNumberMatchedWith(otherLotto);

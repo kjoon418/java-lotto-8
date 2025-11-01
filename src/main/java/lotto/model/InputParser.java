@@ -5,7 +5,7 @@ import java.util.List;
 public interface InputParser {
     int parsePurchaseAmount(String rawInput);
 
-    List<Integer> parseWinningNumbers(String rawInput);
+    List<LottoNumber> parseWinningNumbers(String rawInput);
 
-    int parseBonusNumber(String rawInput);
+    LottoNumber parseBonusNumber(String rawInput);
 }

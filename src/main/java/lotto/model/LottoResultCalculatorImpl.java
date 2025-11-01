@@ -12,7 +12,7 @@ public class LottoResultCalculatorImpl implements LottoResultCalculator {
 
     @Override
     public LottoResult calculate(Lotto lotto, WinningLotto winningLotto) {
-        int equalCount = lotto.getEqualCount(winningLotto);
+        int equalCount = winningLotto.getEqualCount(lotto);
         boolean bonusEqual = winningLotto.bonusNumberMatchedWith(lotto);
 
         return LottoResult.of(equalCount, bonusEqual);

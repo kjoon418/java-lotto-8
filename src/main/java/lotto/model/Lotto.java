@@ -1,64 +1,40 @@
 package lotto.model;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
 
 public class Lotto {
     private static final int SIZE = 6;
-    protected static final int MINIMUM = 1;
-    protected static final int MAXIMUM = 45;
 
-    private final List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(List<LottoNumber> numbers) {
         validateSize(numbers);
-        validateRange(numbers);
         validateDuplicate(numbers);
 
         this.numbers = numbers;
     }
 
     public static Lotto random() {
-        List<Integer> randomNumbers = Randoms.pickUniqueNumbersInRange(MINIMUM, MAXIMUM,
-                SIZE);
+        List<LottoNumber> lottoNumbers = LottoNumber.randomNumbers(SIZE);
 
-        return new Lotto(randomNumbers);
+        return new Lotto(lottoNumbers);
     }
 
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return List.copyOf(numbers);
     }
 
-    public int getEqualCount(Lotto otherLotto) {
-        return (int) otherLotto.numbers.stream()
-                .filter(this::contains)
-                .count();
-    }
-
-    public boolean contains(int number) {
+    public boolean contains(LottoNumber number) {
         return numbers.contains(number);
     }
 
-    protected boolean isOutOfRange(Integer number) {
-        return number < MINIMUM || number > MAXIMUM;
-    }
-
-    private void validateSize(List<Integer> numbers) {
+    private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != SIZE) {
             throw new IllegalArgumentException("로또 번호는 " + SIZE + "개여야 합니다.");
         }
     }
 
-    private void validateRange(List<Integer> numbers) {
-        boolean outOfRange = numbers.stream()
-                .anyMatch(this::isOutOfRange);
-
-        if (outOfRange) {
-            throw new IllegalArgumentException("로또 번호는 [" + MINIMUM + ", " + MAXIMUM + "] 범위에 속해야 합니다.");
-        }
-    }
-
-    private void validateDuplicate(List<Integer> numbers) {
+    private void validateDuplicate(List<LottoNumber> numbers) {
         long distinctSize = numbers.stream()
                 .distinct()
                 .count();

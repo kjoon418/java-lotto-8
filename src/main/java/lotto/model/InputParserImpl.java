@@ -17,20 +17,22 @@ public class InputParserImpl implements InputParser {
     }
 
     @Override
-    public List<Integer> parseWinningNumbers(String rawInput) {
+    public List<LottoNumber> parseWinningNumbers(String rawInput) {
         validateEmpty(rawInput);
 
         String[] splitInput = rawInput.split(DELIMITER);
-        List<Integer> numbers = parseToNumbers(splitInput);
+        List<LottoNumber> numbers = parseToLottoNumbers(splitInput);
 
         return Collections.unmodifiableList(numbers);
     }
 
     @Override
-    public int parseBonusNumber(String rawInput) {
+    public LottoNumber parseBonusNumber(String rawInput) {
         validateDigit(rawInput);
 
-        return Integer.parseInt(rawInput);
+        int number = Integer.parseInt(rawInput);
+
+        return new LottoNumber(number);
     }
 
     private void validateEmpty(String rawInput) {
@@ -39,12 +41,13 @@ public class InputParserImpl implements InputParser {
         }
     }
 
-    private List<Integer> parseToNumbers(String[] splitInput) {
-        List<Integer> numbers = new ArrayList<>();
+    private List<LottoNumber> parseToLottoNumbers(String[] splitInput) {
+        List<LottoNumber> numbers = new ArrayList<>();
 
         for (String input : splitInput) {
             validateDigit(input);
-            numbers.add(Integer.parseInt(input));
+            int number = Integer.parseInt(input);
+            numbers.add(new LottoNumber(number));
         }
 
         return numbers;
