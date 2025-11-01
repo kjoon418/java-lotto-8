@@ -7,7 +7,14 @@ import org.junit.platform.commons.util.StringUtils;
 
 public class InputParserImpl implements InputParser {
     private static final String DELIMITER = ",";
-    private static final String NUMERIC_REGEX = "\\d+";
+    private static final String DIGIT_REGEX = "\\d+";
+
+    @Override
+    public int parsePurchaseAmount(String rawInput) {
+        validateDigit(rawInput);
+
+        return Integer.parseInt(rawInput);
+    }
 
     @Override
     public List<Integer> parseWinningNumbers(String rawInput) {
@@ -29,16 +36,16 @@ public class InputParserImpl implements InputParser {
         List<Integer> numbers = new ArrayList<>();
 
         for (String input : splitInput) {
-            validateNumeric(input);
+            validateDigit(input);
             numbers.add(Integer.parseInt(input));
         }
 
         return numbers;
     }
 
-    private void validateNumeric(String string) {
-        if (!string.matches(NUMERIC_REGEX)) {
-            throw new IllegalArgumentException("숫자가 아닌 값이 포함되어 있습니다.");
+    private void validateDigit(String string) {
+        if (string == null || !string.matches(DIGIT_REGEX)) {
+            throw new IllegalArgumentException("값이 정수 형태가 아닙니다.");
         }
     }
 }
