@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RandomLottoPurchase implements LottoPurchase {
+public class LottoPurchaseImpl implements LottoPurchase {
     private final int price;
 
-    public RandomLottoPurchase(int price) {
+    public LottoPurchaseImpl(int price) {
         this.price = price;
     }
 
     @Override
-    public List<Lotto> purchase(int purchaseAmount) {
+    public List<Lotto> purchaseRandomLottos(int purchaseAmount) {
         validatePurchaseAmount(purchaseAmount);
 
         int lottoAmount = getLottoAmount(purchaseAmount);

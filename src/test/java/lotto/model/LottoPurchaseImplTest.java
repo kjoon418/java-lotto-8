@@ -7,10 +7,10 @@ import java.util.List;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class RandomLottoPurchaseTest {
+class LottoPurchaseImplTest {
     private static final int PRICE = 1_000;
 
-    private final RandomLottoPurchase randomLottoPurchase = new RandomLottoPurchase(PRICE);
+    private final LottoPurchase lottoPurchase = new LottoPurchaseImpl(PRICE);
 
     @ParameterizedTest
     @ValueSource(ints = {1_000, 15_000, 50_000, 100_000})
@@ -19,7 +19,7 @@ class RandomLottoPurchaseTest {
         int expectedLottoAmount = purchaseAmount / PRICE;
 
         // when
-        List<Lotto> lottos = randomLottoPurchase.purchase(purchaseAmount);
+        List<Lotto> lottos = lottoPurchase.purchaseRandomLottos(purchaseAmount);
 
         // then
         assertThat(lottos.size()).isEqualTo(expectedLottoAmount);
@@ -28,7 +28,7 @@ class RandomLottoPurchaseTest {
     @ParameterizedTest
     @ValueSource(ints = {1_500, 15_100, 50_300, 100_999})
     void 구입금액이_가격에_나누어_떨어지지_않는다면_예외를_던진다(int illegalPurchaseAmount) {
-        assertThatThrownBy(() -> randomLottoPurchase.purchase(illegalPurchaseAmount))
+        assertThatThrownBy(() -> lottoPurchase.purchaseRandomLottos(illegalPurchaseAmount))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
