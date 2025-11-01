@@ -23,14 +23,14 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(ints = {0, -1, -100, Integer.MIN_VALUE})
     void 로또_번호가_1보다_작으면_예외가_발생한다(int illegalNumber) {
-        assertThatThrownBy(() -> new Lotto(List.of(illegalNumber, 2, 3, 4, 5)))
+        assertThatThrownBy(() -> new Lotto(List.of(illegalNumber, 2, 3, 4, 5, 6)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @ParameterizedTest
     @ValueSource(ints = {46, 500, Integer.MAX_VALUE})
     void 로또_번호가_45보다_크면_예외가_발생한다(int illegalNumber) {
-        assertThatThrownBy(() -> new Lotto(List.of(illegalNumber, 2, 3, 4, 5)))
+        assertThatThrownBy(() -> new Lotto(List.of(illegalNumber, 2, 3, 4, 5, 6)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
