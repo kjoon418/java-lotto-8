@@ -15,22 +15,6 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private static final String LOTTO_PREFIX = "[";
     private static final String LOTTO_SUFFIX = "]";
     private static final String LOTTO_DELIMITER = ", ";
-    private static final String ERROR_MESSAGE_PREFIX = "[ERROR] ";
-
-    @Override
-    public void printPurchaseAmountGuide() {
-        System.out.println("구입금액을 입력해 주세요.");
-    }
-
-    @Override
-    public void printWinningNumbersGuide() {
-        System.out.println("당첨 번호를 입력해 주세요.");
-    }
-
-    @Override
-    public void printBonusNumberGuide() {
-        System.out.println("보너스 번호를 입력해 주세요.");
-    }
 
     @Override
     public void printPurchasedLottos(List<LottoDto> lottos) {
@@ -57,16 +41,6 @@ public class LottoOutputViewImpl implements LottoOutputView {
         }
 
         printProfitRate(statistic.profitRate());
-    }
-
-    @Override
-    public void printErrorMessage(Exception error) {
-        System.out.println(ERROR_MESSAGE_PREFIX + error.getMessage());
-    }
-
-    @Override
-    public void printEmptyLine() {
-        System.out.println();
     }
 
     private void printLotto(LottoDto lotto) {
@@ -118,7 +92,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
 
     private void printProfitRate(double profitRate) {
         System.out.printf(
-                "총 수익률은 %s%%입니다." + System.lineSeparator(),
+                "총 수익률은 %s입니다." + System.lineSeparator(),
                 formatProfitRate(profitRate)
         );
     }
