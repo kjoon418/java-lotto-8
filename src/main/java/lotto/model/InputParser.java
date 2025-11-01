@@ -6,4 +6,6 @@ public interface InputParser {
     int parsePurchaseAmount(String rawInput);
 
     List<Integer> parseWinningNumbers(String rawInput);
+
+    int parseBonusNumber(String rawInput);
 }

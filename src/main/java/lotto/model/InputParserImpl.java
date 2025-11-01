@@ -26,6 +26,13 @@ public class InputParserImpl implements InputParser {
         return Collections.unmodifiableList(numbers);
     }
 
+    @Override
+    public int parseBonusNumber(String rawInput) {
+        validateDigit(rawInput);
+
+        return Integer.parseInt(rawInput);
+    }
+
     private void validateEmpty(String rawInput) {
         if (StringUtils.isBlank(rawInput)) {
             throw new IllegalArgumentException("입력이 비어 있습니다.");

@@ -33,7 +33,7 @@ class InputParserImplTest {
 
         @ParameterizedTest
         @NullAndEmptySource
-        @ValueSource(strings = {"1_000", "5,000", "3 0000", "500원"})
+        @ValueSource(strings = {"1_000", "5,000", "3 0000", "500원", "10.0"})
         void 입력이_정수_형태가_아니라면_예외를_던진다(String illegalInput) {
             assertThatThrownBy(() -> inputParser.parsePurchaseAmount(illegalInput))
                     .isInstanceOf(IllegalArgumentException.class);
@@ -70,6 +70,30 @@ class InputParserImplTest {
 
             // when & then
             assertThatThrownBy(() -> inputParser.parseWinningNumbers(illegalInput))
+                    .isInstanceOf(IllegalArgumentException.class);
+        }
+    }
+
+    @Nested
+    class 보너스_번호에_대한_입력을_파싱한다 {
+        @Test
+        void 입력을_정수로_변환한다() {
+            // given
+            String rawInput = "30";
+            int expectedResult = 30;
+
+            // when
+            int actualResult = inputParser.parseBonusNumber(rawInput);
+
+            // then
+            assertThat(actualResult).isEqualTo(expectedResult);
+        }
+
+        @ParameterizedTest
+        @NullAndEmptySource
+        @ValueSource(strings = {"3.0", "five", "5,000"})
+        void 입력이_정수_형태가_아니라면_예외를_던진다(String illegalInput) {
+            assertThatThrownBy(() -> inputParser.parseBonusNumber(illegalInput))
                     .isInstanceOf(IllegalArgumentException.class);
         }
     }
