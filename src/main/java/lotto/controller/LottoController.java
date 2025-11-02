@@ -54,7 +54,7 @@ public class LottoController {
         lottoOutputView.printPurchasedLottos(toDtos(purchaseDto.lottos()));
 
         Lotto winningNumberLotto = retryIfIllegalArgument(this::getWinningNumberLotto, errorOutputView::printErrorMessage);
-        WinningLotto winningLotto = retryIfIllegalArgument(() -> getWinningLotto(winningNumberLotto), errorOutputView::printErrorMessage);
+        WinningLotto winningLotto = retryIfIllegalArgument(() -> createWinningLotto(winningNumberLotto), errorOutputView::printErrorMessage);
 
         List<LottoResult> results = resultCalculator.calculate(purchaseDto.lottos(), winningLotto);
         LottoStatisticDto statistic = analyzer.analyze(results, purchaseDto.usedPurchaseAmount());
@@ -65,7 +65,6 @@ public class LottoController {
         guideOutputView.printPurchaseAmountGuide();
         String rawPurchaseAmount = inputView.readPurchaseAmount();
         int purchaseAmount = inputParser.parsePurchaseAmount(rawPurchaseAmount);
-
         lottoOutputView.printEmptyLine();
 
         return purchase.purchaseRandomLottos(purchaseAmount);
@@ -77,8 +76,7 @@ public class LottoController {
                 .toList();
     }
 
-    private WinningLotto getWinningLotto(Lotto winningNumberLotto) {
-        // TODO: 그노무 단일책임원칙 위반
+    private WinningLotto createWinningLotto(Lotto winningNumberLotto) {
         LottoNumber bonusNumber = getBonusNumber();
 
         return new WinningLotto(winningNumberLotto, bonusNumber);
