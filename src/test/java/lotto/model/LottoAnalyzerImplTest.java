@@ -25,8 +25,8 @@ class LottoAnalyzerImplTest {
             LottoStatisticDto statistic = lottoAnalyzer.analyze(lottoResults, PURCHASE_AMOUNT);
 
             // then
-            Map<LottoResult, Integer> results = statistic.resultAmounts();
-            assertThat(results.values()
+            Map<LottoResult, Integer> resultAmounts = statistic.resultAmounts();
+            assertThat(resultAmounts.values()
                     .stream()
                     .allMatch(amount -> amount == 1)
             ).isTrue();
