@@ -8,7 +8,7 @@ public record LottoDto(
         List<Integer> numbers
 ) {
     public static LottoDto from(Lotto lotto) {
-        List<Integer> numbers = lotto.getNumbers().stream()
+        List<Integer> numbers = lotto.numbers().stream()
                 .map(LottoNumber::get)
                 .toList();
 

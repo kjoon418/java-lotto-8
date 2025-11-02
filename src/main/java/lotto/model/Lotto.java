@@ -2,16 +2,14 @@ package lotto.model;
 
 import java.util.List;
 
-public class Lotto {
+public record Lotto(
+        List<LottoNumber> numbers
+) {
     private static final int SIZE = 6;
 
-    private final List<LottoNumber> numbers;
-
-    public Lotto(List<LottoNumber> numbers) {
+    public Lotto {
         validateSize(numbers);
         validateDuplicate(numbers);
-
-        this.numbers = numbers;
     }
 
     public static Lotto random() {
@@ -20,7 +18,8 @@ public class Lotto {
         return new Lotto(lottoNumbers);
     }
 
-    public List<LottoNumber> getNumbers() {
+    @Override
+    public List<LottoNumber> numbers() {
         return List.copyOf(numbers);
     }
 

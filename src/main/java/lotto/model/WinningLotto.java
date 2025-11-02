@@ -16,7 +16,7 @@ public class WinningLotto {
     }
 
     public int getEqualCount(Lotto lotto) {
-        return (int) lotto.getNumbers().stream()
+        return (int) lotto.numbers().stream()
                 .filter(this.lotto::contains)
                 .count();
     }
