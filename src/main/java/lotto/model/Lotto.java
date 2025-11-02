@@ -39,7 +39,7 @@ public record Lotto(
                 .count();
 
         if (numbers.size() != distinctSize) {
-            throw new IllegalArgumentException("로또 번호는 중복될 수 업습니다.");
+            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
 }
