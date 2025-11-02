@@ -56,6 +56,8 @@ public class LottoController {
         Lotto winningNumberLotto = retryIfIllegalArgument(this::getWinningNumberLotto, errorOutputView::printErrorMessage);
         WinningLotto winningLotto = retryIfIllegalArgument(() -> createWinningLotto(winningNumberLotto), errorOutputView::printErrorMessage);
 
+        inputView.close();
+
         List<LottoResult> results = resultCalculator.calculate(purchaseDto.lottos(), winningLotto);
         LottoStatisticDto statistic = analyzer.analyze(results, purchaseDto.usedPurchaseAmount());
         lottoOutputView.printResultStatistic(statistic);
