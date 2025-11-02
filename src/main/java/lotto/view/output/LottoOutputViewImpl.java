@@ -62,7 +62,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private Map<LottoResult, Integer> getResultsSortedAscending(Map<LottoResult, Integer> results) {
         return results.entrySet()
                 .stream()
-                .sorted(Comparator.comparingInt(entry -> entry.getKey().equalCount))
+                .sorted(Comparator.comparingInt(entry -> entry.getKey().prize))
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
