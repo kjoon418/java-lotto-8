@@ -58,4 +58,8 @@ public enum LottoResult {
                 .findFirst()
                 .orElse(NO_PRIZE);
     }
+
+    public boolean hasPrize() {
+        return prize > 0;
+    }
 }
