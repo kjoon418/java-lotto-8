@@ -1,6 +1,6 @@
 package lotto.model;
 
-import static lotto.util.TestUtils.toLottoNumbers;
+import static lotto.test.util.TestUtils.toLottoNumbers;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
