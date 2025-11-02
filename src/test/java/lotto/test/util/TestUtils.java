@@ -2,7 +2,7 @@ package lotto.test.util;
 
 import java.util.Arrays;
 import java.util.List;
-import lotto.model.LottoNumber;
+import lotto.model.lotto.LottoNumber;
 
 public class TestUtils {
     private TestUtils() {
