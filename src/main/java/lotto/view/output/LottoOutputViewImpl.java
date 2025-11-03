@@ -16,6 +16,8 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private static final String LOTTO_SUFFIX = "]";
     private static final String LOTTO_DELIMITER = ", ";
 
+    private static final String RESULT_STATISTIC_HEADER = "당첨 통계" + System.lineSeparator() + "---";
+
     @Override
     public void printPurchasedLottos(List<LottoDto> lottos) {
         System.out.printf("%d개를 구매했습니다." + System.lineSeparator(), lottos.size());
@@ -29,8 +31,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
 
     @Override
     public void printResultStatistic(LottoStatisticDto statistic) {
-        System.out.println("당첨 통계");
-        System.out.println("---");
+        System.out.println(RESULT_STATISTIC_HEADER);
 
         Map<LottoResult, Integer> sortedResults = getResultsSortedAscending(statistic.resultAmounts());
         for (Map.Entry<LottoResult, Integer> entry : sortedResults.entrySet()) {
