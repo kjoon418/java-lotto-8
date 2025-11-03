@@ -37,7 +37,7 @@ public class LottoAnalyzerImpl implements LottoAnalyzer {
 
     private int getTotalPrize(List<LottoResult> results) {
         return results.stream()
-                .mapToInt(result -> result.prize)
+                .mapToInt(LottoResult::getPrize)
                 .sum();
     }
 }

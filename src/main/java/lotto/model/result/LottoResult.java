@@ -34,9 +34,9 @@ public enum LottoResult {
             false
     );
 
-    public final int equalCount;
-    public final int prize;
-    public final boolean bonusNumberEqual;
+    private final int equalCount;
+    private final int prize;
+    private final boolean bonusNumberEqual;
 
     LottoResult(
             int equalCount,
@@ -61,5 +61,17 @@ public enum LottoResult {
 
     public boolean hasPrize() {
         return prize > 0;
+    }
+
+    public int getEqualCount() {
+        return equalCount;
+    }
+
+    public int getPrize() {
+        return prize;
+    }
+
+    public boolean isBonusNumberEqual() {
+        return bonusNumberEqual;
     }
 }

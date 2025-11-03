@@ -56,7 +56,7 @@ class LottoAnalyzerImplTest {
 
     private int getTotalProfit(List<LottoResult> results) {
         return results.stream()
-                .mapToInt(result -> result.prize)
+                .mapToInt(LottoResult::getPrize)
                 .sum();
     }
 }

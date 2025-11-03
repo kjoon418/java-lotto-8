@@ -62,7 +62,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private Map<LottoResult, Integer> getResultsSortedAscending(Map<LottoResult, Integer> results) {
         return results.entrySet()
                 .stream()
-                .sorted(Comparator.comparingInt(entry -> entry.getKey().prize))
+                .sorted(Comparator.comparingInt(entry -> entry.getKey().getPrize()))
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
@@ -76,14 +76,14 @@ public class LottoOutputViewImpl implements LottoOutputView {
 
         System.out.printf(
                 outputFormat,
-                result.equalCount,
-                formatPrize(result.prize),
+                result.getEqualCount(),
+                formatPrize(result.getPrize()),
                 lottoAmount
         );
     }
 
     private String getResultOutputFormat(LottoResult lottoResult) {
-        if (lottoResult.bonusNumberEqual) {
+        if (lottoResult.isBonusNumberEqual()) {
             return "%d개 일치, 보너스 볼 일치 (%s원) - %d개" + System.lineSeparator();
         }
 
