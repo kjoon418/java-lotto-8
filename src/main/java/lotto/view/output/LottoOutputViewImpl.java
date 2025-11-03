@@ -1,6 +1,7 @@
 package lotto.view.output;
 
-import static java.lang.System.*;
+import static java.lang.System.lineSeparator;
+import static java.lang.System.out;
 
 import java.text.NumberFormat;
 import java.util.Comparator;
