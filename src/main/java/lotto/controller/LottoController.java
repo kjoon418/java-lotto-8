@@ -1,8 +1,7 @@
 package lotto.controller;
 
-import static lotto.util.RetryUtils.retryIfIllegalArgument;
-
 import java.util.List;
+import java.util.function.Supplier;
 import lotto.dto.LottoDto;
 import lotto.dto.LottoPurchaseDto;
 import lotto.dto.LottoStatisticDto;
@@ -14,6 +13,7 @@ import lotto.model.lotto.LottoPurchase;
 import lotto.model.result.LottoResult;
 import lotto.model.result.LottoResultCalculator;
 import lotto.model.lotto.WinningLotto;
+import lotto.util.RetryUtils;
 import lotto.view.output.ErrorOutputView;
 import lotto.view.output.GuideOutputView;
 import lotto.view.input.LottoInputView;
@@ -50,17 +50,21 @@ public class LottoController {
     }
 
     public void run() {
-        LottoPurchaseDto purchaseDto = retryIfIllegalArgument(this::purchaseLottos, errorOutputView::printErrorMessage);
+        LottoPurchaseDto purchaseDto = retryIfIllegalArgument(this::purchaseLottos);
         lottoOutputView.printPurchasedLottos(toDtos(purchaseDto.lottos()));
 
-        Lotto winningNumberLotto = retryIfIllegalArgument(this::getWinningNumberLotto, errorOutputView::printErrorMessage);
-        WinningLotto winningLotto = retryIfIllegalArgument(() -> createWinningLotto(winningNumberLotto), errorOutputView::printErrorMessage);
+        Lotto winningNumberLotto = retryIfIllegalArgument(this::getWinningNumberLotto);
+        WinningLotto winningLotto = retryIfIllegalArgument(() -> createWinningLotto(winningNumberLotto));
 
         inputView.close();
 
         List<LottoResult> results = resultCalculator.calculate(purchaseDto.lottos(), winningLotto);
         LottoStatisticDto statistic = analyzer.analyze(results, purchaseDto.usedPurchaseAmount());
         lottoOutputView.printResultStatistic(statistic);
+    }
+
+    private <T> T retryIfIllegalArgument(Supplier<T> retryableAction) {
+        return RetryUtils.retryIfIllegalArgument(retryableAction, errorOutputView::printErrorMessage);
     }
 
     private LottoPurchaseDto purchaseLottos() {
