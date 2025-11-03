@@ -7,6 +7,7 @@ import java.util.Objects;
 public class LottoNumber {
     private static final int MINIMUM = 1;
     private static final int MAXIMUM = 45;
+    private static final String OUT_OF_RANGE = "로또 번호는 [" + MINIMUM + ", " + MAXIMUM + "] 범위에 속해야 합니다.";
 
     private final int number;
 
@@ -29,7 +30,7 @@ public class LottoNumber {
 
     private void validateRange(int number) {
         if (isOutOfRange(number)) {
-            throw new IllegalArgumentException("로또 번호는 [" + MINIMUM + ", " + MAXIMUM + "] 범위에 속해야 합니다.");
+            throw new IllegalArgumentException(OUT_OF_RANGE);
         }
     }
 

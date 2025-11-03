@@ -49,7 +49,7 @@ public enum LottoResult {
     }
 
     public static LottoResult of(int equalCount, boolean bonusNumberEqual) {
-        if (equalCount == 5 && bonusNumberEqual) {
+        if (equalCount == FIVE_EQUAL_WITH_BONUS.equalCount && bonusNumberEqual) {
             return FIVE_EQUAL_WITH_BONUS;
         }
 

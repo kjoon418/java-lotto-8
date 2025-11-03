@@ -6,6 +6,8 @@ public record Lotto(
         List<LottoNumber> numbers
 ) {
     private static final int SIZE = 6;
+    private static final String ILLEGAL_SIZE = "로또 번호는 " + SIZE + "개여야 합니다.";
+    private static final String DUPLICATED_NUMBER = "로또 번호는 중복될 수 없습니다.";
 
     public Lotto {
         validateSize(numbers);
@@ -29,7 +31,7 @@ public record Lotto(
 
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != SIZE) {
-            throw new IllegalArgumentException("로또 번호는 " + SIZE + "개여야 합니다.");
+            throw new IllegalArgumentException(ILLEGAL_SIZE);
         }
     }
 
@@ -39,7 +41,7 @@ public record Lotto(
                 .count();
 
         if (numbers.size() != distinctSize) {
-            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
+            throw new IllegalArgumentException(DUPLICATED_NUMBER);
         }
     }
 }
