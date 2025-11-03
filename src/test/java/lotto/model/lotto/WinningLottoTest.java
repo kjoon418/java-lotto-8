@@ -14,8 +14,9 @@ class WinningLottoTest {
     @Test
     void 보너스_번호가_다른_번호와_중복되면_예외를_던진다() {
         // given
-        LottoNumber bonusNumber = new LottoNumber(6);
-        Lotto lotto = new Lotto(lottoNumbersOf(1, 2, 3, 4, 5, 6));
+        int bonusNumberValue = 6;
+        LottoNumber bonusNumber = new LottoNumber(bonusNumberValue);
+        Lotto lotto = new Lotto(lottoNumbersOf(1, 2, 3, 4, 5, bonusNumberValue));
 
         // when & then
         assertThatThrownBy(() -> new WinningLotto(lotto, bonusNumber))
