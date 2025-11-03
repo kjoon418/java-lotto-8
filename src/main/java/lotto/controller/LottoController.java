@@ -64,7 +64,7 @@ public class LottoController {
     }
 
     private <T> T retryIfIllegalArgument(Supplier<T> retryableAction) {
-        return RetryUtils.retryIfIllegalArgument(retryableAction, errorOutputView::printErrorMessage);
+        return RetryUtils.retryOnInvalidInput(retryableAction, errorOutputView::printErrorMessage);
     }
 
     private LottoPurchaseDto purchaseLottos() {

@@ -18,7 +18,7 @@ class RetryUtilsTest {
         ExceptionThrower exceptionThrower = new ExceptionThrower(throwCount, IllegalArgumentException::new);
 
         // when
-        RetryUtils.retryIfIllegalArgument(exceptionThrower::action, DEFAULT_EXCEPTION_CONSUMER);
+        RetryUtils.retryOnInvalidInput(exceptionThrower::action, DEFAULT_EXCEPTION_CONSUMER);
 
         // then
         assertThat(exceptionThrower.getThrownCount()).isEqualTo(throwCount);
@@ -32,7 +32,7 @@ class RetryUtilsTest {
         CountingConsumer<IllegalArgumentException> countingConsumer = new CountingConsumer<>();
 
         // when
-        RetryUtils.retryIfIllegalArgument(exceptionThrower::action, countingConsumer);
+        RetryUtils.retryOnInvalidInput(exceptionThrower::action, countingConsumer);
 
         // then: Consumer의 호출 횟수가 예외 발생 횟수와 같은지 검증
         assertThat(countingConsumer.getCallCount()).isEqualTo(throwCount);
