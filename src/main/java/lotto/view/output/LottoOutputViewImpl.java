@@ -1,5 +1,7 @@
 package lotto.view.output;
 
+import static java.lang.System.*;
+
 import java.text.NumberFormat;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -16,11 +18,11 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private static final String LOTTO_SUFFIX = "]";
     private static final String LOTTO_DELIMITER = ", ";
 
-    private static final String STATISTIC_HEADER = "당첨 통계" + System.lineSeparator() + "---";
+    private static final String STATISTIC_HEADER = "당첨 통계" + lineSeparator() + "---";
 
     @Override
     public void printPurchasedLottos(List<LottoDto> lottos) {
-        System.out.printf("%d개를 구매했습니다." + System.lineSeparator(), lottos.size());
+        out.printf("%d개를 구매했습니다." + lineSeparator(), lottos.size());
 
         for (LottoDto lotto : lottos) {
             printLotto(lotto);
@@ -31,7 +33,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
 
     @Override
     public void printStatistic(LottoStatisticDto statistic) {
-        System.out.println(STATISTIC_HEADER);
+        out.println(STATISTIC_HEADER);
 
         Map<LottoResult, Integer> sortedResults = getResultsSortedAscending(statistic.resultAmounts());
         for (Map.Entry<LottoResult, Integer> entry : sortedResults.entrySet()) {
@@ -51,7 +53,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
                 .map(Object::toString)
                 .collect(Collectors.joining(LOTTO_DELIMITER));
 
-        System.out.println(LOTTO_PREFIX + joinedNumbers + LOTTO_SUFFIX);
+        out.println(LOTTO_PREFIX + joinedNumbers + LOTTO_SUFFIX);
     }
 
     private List<Integer> sortAscending(List<Integer> numbers) {
@@ -75,7 +77,7 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private void printResult(LottoResult result, int lottoAmount) {
         String outputFormat = getResultOutputFormat(result);
 
-        System.out.printf(
+        out.printf(
                 outputFormat,
                 result.getEqualCount(),
                 formatPrize(result.getPrize()),
@@ -85,15 +87,15 @@ public class LottoOutputViewImpl implements LottoOutputView {
 
     private String getResultOutputFormat(LottoResult lottoResult) {
         if (lottoResult.isBonusNumberEqual()) {
-            return "%d개 일치, 보너스 볼 일치 (%s원) - %d개" + System.lineSeparator();
+            return "%d개 일치, 보너스 볼 일치 (%s원) - %d개" + lineSeparator();
         }
 
-        return "%d개 일치 (%s원) - %d개" + System.lineSeparator();
+        return "%d개 일치 (%s원) - %d개" + lineSeparator();
     }
 
     private void printProfitRate(double profitRate) {
-        System.out.printf(
-                "총 수익률은 %s입니다." + System.lineSeparator(),
+        out.printf(
+                "총 수익률은 %s입니다." + lineSeparator(),
                 formatProfitRate(profitRate)
         );
     }
