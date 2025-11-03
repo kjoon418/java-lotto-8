@@ -20,10 +20,14 @@ public class LottoOutputViewImpl implements LottoOutputView {
     private static final String LOTTO_DELIMITER = ", ";
 
     private static final String STATISTIC_HEADER = "당첨 통계" + lineSeparator() + "---";
+    private static final String PURCHASE_HEADER_FORMAT = "%d개를 구매했습니다." + lineSeparator();
+    private static final String RESULT_WITH_BONUS_NUMBER_FORMAT = "%d개 일치, 보너스 볼 일치 (%s원) - %d개" + lineSeparator();
+    private static final String RESULT_FORMAT = "%d개 일치 (%s원) - %d개" + lineSeparator();
+    private static final String PROFIT_RATE_FORMAT = "총 수익률은 %s입니다." + lineSeparator();
 
     @Override
     public void printPurchasedLottos(List<LottoDto> lottos) {
-        out.printf("%d개를 구매했습니다." + lineSeparator(), lottos.size());
+        printPurchaseHeader(lottos.size());
 
         for (LottoDto lotto : lottos) {
             printLotto(lotto);
@@ -45,6 +49,10 @@ public class LottoOutputViewImpl implements LottoOutputView {
         }
 
         printProfitRate(statistic.profitRate());
+    }
+
+    private void printPurchaseHeader(int lottoAmount) {
+        out.printf(PURCHASE_HEADER_FORMAT, lottoAmount);
     }
 
     private void printLotto(LottoDto lotto) {
@@ -88,24 +96,21 @@ public class LottoOutputViewImpl implements LottoOutputView {
 
     private String getResultOutputFormat(LottoResult lottoResult) {
         if (lottoResult.isBonusNumberEqual()) {
-            return "%d개 일치, 보너스 볼 일치 (%s원) - %d개" + lineSeparator();
+            return RESULT_WITH_BONUS_NUMBER_FORMAT;
         }
 
-        return "%d개 일치 (%s원) - %d개" + lineSeparator();
+        return RESULT_FORMAT;
     }
 
     private void printProfitRate(double profitRate) {
-        out.printf(
-                "총 수익률은 %s입니다." + lineSeparator(),
-                formatProfitRate(profitRate)
-        );
+        out.printf(PROFIT_RATE_FORMAT, refineProfitRate(profitRate));
     }
 
     private String formatPrize(Integer number) {
         return NumberFormat.getNumberInstance(Locale.KOREA).format(number);
     }
 
-    private String formatProfitRate(double profitRate) {
+    private String refineProfitRate(double profitRate) {
         NumberFormat formatter = NumberFormat.getPercentInstance();
         formatter.setMinimumFractionDigits(1);
         formatter.setMaximumFractionDigits(1);
