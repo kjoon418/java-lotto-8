@@ -60,7 +60,7 @@ public class LottoController {
 
         List<LottoResult> results = resultCalculator.calculate(purchaseDto.lottos(), winningLotto);
         LottoStatisticDto statistic = analyzer.analyze(results, purchaseDto.usedPurchaseAmount());
-        lottoOutputView.printResultStatistic(statistic);
+        lottoOutputView.printStatistic(statistic);
     }
 
     private <T> T retryIfIllegalArgument(Supplier<T> retryableAction) {
